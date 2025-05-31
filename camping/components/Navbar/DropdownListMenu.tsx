@@ -13,7 +13,7 @@ import Link from "next/link";
 import { links } from "@/utils/link";
 
 //asChild ใช้ความสามารถของลูกๆ เพราะในนี้เรามี trigger แต่ยังจะใส่ button ไปอีกเลย error
-const DropdownListMeni = () => {
+const DropdownListMenu = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -38,4 +38,4 @@ const DropdownListMeni = () => {
     </DropdownMenu>
   );
 };
-export default DropdownListMeni;
+export default DropdownListMenu;
