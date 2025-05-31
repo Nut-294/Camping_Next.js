@@ -1,5 +1,5 @@
 import { ThemeProvider } from "./theme-provider";
-
+import { Toaster } from "@/components/ui/sonner";
 //ReactNode เป็น type ที่กำหนดให้พวกที่ return เป็น jsx ex.component
 const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -11,6 +11,7 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
         disableTransitionOnChange
       >
         {children}
+        <Toaster />
       </ThemeProvider>
     </>
   );

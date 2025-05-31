@@ -2,7 +2,7 @@ import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server';
 
 // ไม่สามารถเข้า path ได้
 const isProtectedRoute = createRouteMatcher([
-    '/favorites(.*)'
+    '/favorits(.*)'
     , '/camp(.*)'])
 
 
