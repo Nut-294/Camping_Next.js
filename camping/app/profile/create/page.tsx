@@ -1,14 +1,7 @@
 import { SubmitButton } from "@/components/form/Buttons";
 import FormContainer from "@/components/form/FormContainer";
 import FormInput from "@/components/form/FormInput";
-
-const createProfileAction = async (prevState:any,formData: FormData) => {
-  "use server";
-  //นำค่าจาก firstNameมาใช้
-  const firstName = formData.get("firstName") as string;
-  console.log('firstName jaa',firstName);
-  return {message :'CreateProfile'}
-};
+import { createProfileAction } from "../../../actions/actions";
 
 const CreateProfile = () => {
   return (
@@ -24,7 +17,7 @@ const CreateProfile = () => {
               placeholder="First Name"
             />
             <FormInput
-              name="Last Name"
+              name="lastName"
               label="Last Name"
               type="text"
               placeholder="LastName"
