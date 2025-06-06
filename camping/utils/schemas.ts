@@ -1,12 +1,13 @@
 import { z, ZodSchema } from "zod";
 
 export const profileSchema = z.object({
-  firstName: z.string().min(2, { message: "ชื่อ อักขระมากว่า 2 อักขระ" }),
-  lastName: z.string().min(2, { message: "นามสกุล อักขระมากว่า 2 อักขระ" }),
-  userName: z.string().min(2, { message: "username อักขระมากว่า 2 อักขระ" }),
+  firstName: z.string().min(2, { message: "ชื่อ ต้องมีความยาวอย่างน้อย 2 ตัวอักษร" }),
+  lastName: z.string().min(2, { message: "นามสกุล ต้องมีความยาวอย่างน้อย 2 ตัวอักษร" }),
+  userName: z.string().min(2, { message: "username ต้องมีความยาวอย่างน้อย 2 ตัวอักษร" }),
 });
 
 // function ตรวจสอบ รับ (Schema และ data) จาก zod
+//<T> เป็นการประกาศ function ว่าจะมีการใช้ Generic
 export const validateWithZod = <T>(
     schema: ZodSchema<T>, 
     data: unknown):T => {

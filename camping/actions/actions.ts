@@ -1,6 +1,12 @@
 "use server";
 import { profileSchema, validateWithZod } from "@/utils/schemas";
 
+const renderError = (error: unknown): { message: string } => {
+  return {
+    message: error instanceof Error ? error.message : "Error!!",
+  };
+};
+
 export const createProfileAction = async (
   prevState: any,
   formData: FormData
@@ -12,6 +18,6 @@ export const createProfileAction = async (
     return { message: "Create Profile Success!!" };
   } catch (error) {
     console.log(error);
-    return { message: error.message || "server error" };
+    return renderError(error);
   }
 };
