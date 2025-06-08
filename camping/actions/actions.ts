@@ -28,7 +28,7 @@ export const createProfileAction = async (
 ) => {
   try {
     const user = await currentUser();
-    if(!user) throw new Error("Please Login!!");
+    if (!user) throw new Error("Please Login!!");
 
     const rawData = Object.fromEntries(formData);
     const validateField = validateWithZod(profileSchema, rawData);
@@ -61,25 +61,17 @@ export const createProfileAction = async (
   redirect("/");
 };
 
-
-
-
-
-
-
-
 export const createLandmarkAction = async (
   prevState: any,
   formData: FormData
-):Promise<{ message: string }> => {
+): Promise<{ message: string }> => {
   try {
     const user = await currentUser();
-    if(!user) throw new Error("Please Login!!");
+    if (!user) throw new Error("Please Login!!");
 
     const rawData = Object.fromEntries(formData);
     // const validateField = validateWithZod(profileSchema, rawData);
     console.log("validated จากหน้าบ้าน", rawData);
-  
 
     return { message: "Create Landmark Success!!" };
   } catch (error) {
