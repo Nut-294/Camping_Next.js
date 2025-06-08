@@ -2,8 +2,13 @@ import { SubmitButton } from "@/components/form/Buttons";
 import FormContainer from "@/components/form/FormContainer";
 import FormInput from "@/components/form/FormInput";
 import { createProfileAction } from "../../../actions/actions";
+import { currentUser } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
 
-const CreateProfile = () => {
+const CreateProfile = async () => {
+  const user = await currentUser();
+  //ถ้ามี Profile ให้ไปหน้า หลัก
+  if (user?.privateMetadata.hasProfile) redirect("/");
   return (
     <section>
       <h1 className="text-sxl font-semibold mb-8 capitalize">New User</h1>

@@ -4,15 +4,15 @@ import { clerkClient, currentUser } from "@clerk/nextjs/server";
 import db from "@/utils/db";
 import { redirect } from "next/navigation";
 
-
+//ตรวจจับ
 const getAuthUser = async () => {
   const user = await currentUser();
-  console.log('user จาก clerk',user)
+  console.log("user จาก clerk", user);
   if (!user) {
     throw new Error("you must logged!!");
   }
- //ถ้าไม่มี Profile ใ้ห้ไปหน้า ลงทะเบียน
-  if(!user.privateMetadata.hasProfile) redirect('profile/create')
+  //ถ้าไม่มี Profile ใ้ห้ไปหน้า ลงทะเบียน
+  if (!user.privateMetadata.hasProfile) redirect("profile/create");
   return user;
 };
 
@@ -27,7 +27,8 @@ export const createProfileAction = async (
   formData: FormData
 ) => {
   try {
-    const user = await getAuthUser();
+    const user = await currentUser();
+    if(!user) throw new Error("Please Login!!");
 
     const rawData = Object.fromEntries(formData);
     const validateField = validateWithZod(profileSchema, rawData);
@@ -58,4 +59,32 @@ export const createProfileAction = async (
     return renderError(error);
   }
   redirect("/");
+};
+
+
+
+
+
+
+
+
+export const createLandmarkAction = async (
+  prevState: any,
+  formData: FormData
+):Promise<{ message: string }> => {
+  try {
+    const user = await currentUser();
+    if(!user) throw new Error("Please Login!!");
+
+    const rawData = Object.fromEntries(formData);
+    // const validateField = validateWithZod(profileSchema, rawData);
+    console.log("validated จากหน้าบ้าน", rawData);
+  
+
+    return { message: "Create Landmark Success!!" };
+  } catch (error) {
+    // console.log(error);
+    return renderError(error);
+  }
+  // redirect("/");
 };

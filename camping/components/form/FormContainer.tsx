@@ -11,7 +11,7 @@ const initialState = {
 // พวก return เป็น jsx ได้แค่ 1 element เท่านั้น
 const FormContainer = ({ action, children }: { action:actionFunction,children: React.ReactNode }) => {
   const [state, formAction] = useActionState(action, initialState);
-  console.log('state',state);
+  // console.log('state',state);
   useEffect(() => {
     if (state.message) {
       toast(state.message);
