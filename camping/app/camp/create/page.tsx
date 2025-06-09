@@ -2,11 +2,13 @@ import { SubmitButton } from "@/components/form/Buttons";
 import FormContainer from "@/components/form/FormContainer";
 import FormInput from "@/components/form/FormInput";
 import { createLandmarkAction } from "../../../actions/actions";
-import { currentUser } from "@clerk/nextjs/server";
-import { redirect } from "next/navigation";
+// import { currentUser } from "@clerk/nextjs/server";
+// import { redirect } from "next/navigation";
 import CategoryInput from "@/components/form/CategoryInput";
 import TextAreaInput from "@/components/form/TextAreaInput";
 import ProvinceInput from "@/components/form/Provinces";
+import MapLandmark from "@/components/map/MapLandmark";
+
 
 const CreateProfile = async () => {
   return (
@@ -37,9 +39,11 @@ const CreateProfile = async () => {
               type="number"
               placeholder="Price"
             />
-            
+
             <ProvinceInput />
           </div>
+
+          <MapLandmark />
 
           <SubmitButton text="create Landmark" size="lg" />
         </FormContainer>
