@@ -1,5 +1,10 @@
 "use server";
-import { imageSchema, profileSchema, validateWithZod } from "@/utils/schemas";
+import {
+  imageSchema,
+  landmarkSchema,
+  profileSchema,
+  validateWithZod,
+} from "@/utils/schemas";
 import { clerkClient, currentUser } from "@clerk/nextjs/server";
 import db from "@/utils/db";
 import { redirect } from "next/navigation";
@@ -71,7 +76,9 @@ export const createLandmarkAction = async (
     const file = formData.get("image") as File;
     //1.Validate
     const validatedFile = validateWithZod(imageSchema, { image: file });
-    console.log("validated จากหน้าบ้าน", file);
+    const validatedField = validateWithZod(landmarkSchema, rawData);
+    console.log("validated ไฟล์ จากหน้าบ้าน", validatedFile);
+    console.log("validated landmark จากหน้าบ้าน", validatedField);
 
     //2. Upload supabase
     //3.Insert DB
