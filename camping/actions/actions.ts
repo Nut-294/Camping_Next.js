@@ -1,5 +1,5 @@
 "use server";
-import { profileSchema, validateWithZod } from "@/utils/schemas";
+import { imageSchema, profileSchema, validateWithZod } from "@/utils/schemas";
 import { clerkClient, currentUser } from "@clerk/nextjs/server";
 import db from "@/utils/db";
 import { redirect } from "next/navigation";
@@ -66,12 +66,15 @@ export const createLandmarkAction = async (
   formData: FormData
 ): Promise<{ message: string }> => {
   try {
-    const user = await currentUser();
-    if (!user) throw new Error("Please Login!!");
-
+    const user = await getAuthUser();
     const rawData = Object.fromEntries(formData);
-    // const validateField = validateWithZod(profileSchema, rawData);
-    console.log("validated จากหน้าบ้าน", rawData);
+    const file = formData.get("image") as File;
+    //1.Validate
+    const validatedFile = validateWithZod(imageSchema, { image: file });
+    console.log("validated จากหน้าบ้าน", file);
+
+    //2. Upload supabase
+    //3.Insert DB
 
     return { message: "Create Landmark Success!!" };
   } catch (error) {

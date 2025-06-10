@@ -8,6 +8,7 @@ import CategoryInput from "@/components/form/CategoryInput";
 import TextAreaInput from "@/components/form/TextAreaInput";
 import ProvinceInput from "@/components/form/Provinces";
 import MapLandmark from "@/components/map/MapLandmark";
+import ImageInput from "@/components/form/ImageInput";
 
 
 const CreateProfile = async () => {
@@ -42,7 +43,7 @@ const CreateProfile = async () => {
 
             <ProvinceInput />
           </div>
-
+          <ImageInput/>
           <MapLandmark />
 
           <SubmitButton text="create Landmark" size="lg" />

@@ -13,6 +13,7 @@ import { useState } from "react";
 
 const iconUrl =
   "https://unpkg.com/leaflet@1.9.3/dist/images/marker-icon-2x.png";
+
 const markerIcon = L.icon({
   iconUrl: iconUrl,
   iconSize: [20, 30],
@@ -46,7 +47,7 @@ const MapLandmark = ({
 }) => {
   const defaultLocation: LatLng = [13, 100];
 
-  const [position, setPosition] = useState(null);
+  const [position, setPosition] = useState<LatLng | null>(null);
   console.log("position", position);
   return (
     <>
@@ -74,11 +75,11 @@ const MapLandmark = ({
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
           </LayersControl.BaseLayer>
-          
+
           <LayersControl.BaseLayer name="ESRI Imagery" checked>
             <TileLayer
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-              url='https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'
+              url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
             />
           </LayersControl.BaseLayer>
         </LayersControl>
