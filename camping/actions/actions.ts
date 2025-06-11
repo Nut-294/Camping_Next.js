@@ -8,11 +8,12 @@ import {
 import { clerkClient, currentUser } from "@clerk/nextjs/server";
 import db from "@/utils/db";
 import { redirect } from "next/navigation";
+import { uploadFile } from "@/utils/supabase";
 
 //ตรวจจับ
 const getAuthUser = async () => {
   const user = await currentUser();
-  console.log("user จาก clerk", user);
+  // console.log("user จาก clerk", user);
   if (!user) {
     throw new Error("you must logged!!");
   }
@@ -77,16 +78,25 @@ export const createLandmarkAction = async (
     //1.Validate
     const validatedFile = validateWithZod(imageSchema, { image: file });
     const validatedField = validateWithZod(landmarkSchema, rawData);
-    console.log("validated ไฟล์ จากหน้าบ้าน", validatedFile);
-    console.log("validated landmark จากหน้าบ้าน", validatedField);
-
+    console.log("validatedFile.image", validatedFile.image);
     //2. Upload supabase
+    const fullPath = await uploadFile(validatedFile.image);
+    console.log("fullpath = ", fullPath);
     //3.Insert DB
+    await db.landmark.create({
+      //log ดูค่า userเพื่อดูว่าต้องเข้าถึงตัวไหน
+      data: {
+        // ... คือ คัดลอก Object
+        ...validatedField,
+        image: fullPath,
+        profileId: user.id,
+      },
+    });
 
-    return { message: "Create Landmark Success!!" };
+    // return { message: "Create Landmark Success!!" };
   } catch (error) {
     // console.log(error);
     return renderError(error);
   }
-  // redirect("/");
+  redirect("/");
 };
