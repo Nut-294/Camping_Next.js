@@ -17,5 +17,5 @@ export async function uploadFile(image: File) {
     .from(bucket)
     .upload(newName, image);
   if (!data) throw new Error("image upload failed!!");
-  return supabase.storage.from("bucket").getPublicUrl(newName).data.publicUrl;
+  return supabase.storage.from(bucket).getPublicUrl(newName).data.publicUrl;
 }

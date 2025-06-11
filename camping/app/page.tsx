@@ -1,10 +1,10 @@
-import { Button } from "@/components/ui/button"
+import LandmarkContainer from "@/components/home/LandmarkContainer";
+
 const page = () => {
+  
   return (
     <>
-      <div>page</div>
-      <h1>Hello</h1>
-      <Button variant="secondary" size="lg">Button</Button>
+    <LandmarkContainer/>
     </>
   );
 };
