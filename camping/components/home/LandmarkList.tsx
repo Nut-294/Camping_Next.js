@@ -1,13 +1,13 @@
 import LandmarkCard from "../card/LandmarkCard";
-
-const LandmarkList = ({ Landmarks }) => {
-    console.log("LandmarkList",Landmarks)
+import { LandmarkCardProps } from "@/utils/types";
+const LandmarkList = ({ Landmarks }: { Landmarks: LandmarkCardProps[] }) => {
+  console.log("LandmarkList", Landmarks);
   return (
-    <div>
+    <section className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mt-4">
       {Landmarks.map((Landmark) => {
-        return <LandmarkCard key={Landmark.id} Landmark={Landmark}/>
+        return <LandmarkCard key={Landmark.id} Landmark={Landmark} />;
       })}
-    </div>
+    </section>
   );
 };
 export default LandmarkList;

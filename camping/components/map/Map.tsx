@@ -69,6 +69,12 @@ const MapLandmark = ({
         <LocationMarker position={position} setPosition={setPosition} />
 
         <LayersControl>
+        <LayersControl.BaseLayer name="ESRI Imagery" checked>
+            <TileLayer
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+            />
+          </LayersControl.BaseLayer>
           <LayersControl.BaseLayer name="Openstreetmap" checked>
             <TileLayer
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -76,12 +82,7 @@ const MapLandmark = ({
             />
           </LayersControl.BaseLayer>
 
-          <LayersControl.BaseLayer name="ESRI Imagery" checked>
-            <TileLayer
-              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-              url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
-            />
-          </LayersControl.BaseLayer>
+        
         </LayersControl>
       </MapContainer>
     </>

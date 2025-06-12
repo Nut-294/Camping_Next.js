@@ -1,4 +1,5 @@
 import { createClient } from "@supabase/supabase-js";
+import { cache } from "react";
 
 const bucket = "landmark-bucket";
 const url = process.env.SUPABASE_URL as string;
@@ -15,7 +16,7 @@ export async function uploadFile(image: File) {
 
   const { data, error } = await supabase.storage
     .from(bucket)
-    .upload(newName, image);
+    .upload(newName, image,{cacheControl:'3600'});
   if (!data) throw new Error("image upload failed!!");
   return supabase.storage.from(bucket).getPublicUrl(newName).data.publicUrl;
 }
