@@ -1,7 +1,7 @@
 "use client";
 import { useFormStatus } from "react-dom";
 import { Button } from "../ui/button";
-import { LoaderCircle } from "lucide-react";
+import { LoaderCircle, RotateCw } from "lucide-react";
 import { SignInButton } from "@clerk/nextjs";
 import { Heart } from "lucide-react";
 type btnSize = "default" | "lg" | "sm";
@@ -36,10 +36,20 @@ export const SubmitButton = ({ className, size, text }: SubmitButtonProps) => {
 export const SignInCardButton = () => {
   return (
     //modal ไม่ทำให้เกิดการรีหน้า
-    <SignInButton mode='modal'>
-      <Button size="icon" variant='outline'>
+    <SignInButton mode="modal">
+      <Button size="icon" variant="outline">
         <Heart />
       </Button>
     </SignInButton>
+  );
+};
+
+export const CardSubmitButton = ({ isFavorite }: { isFavorite: boolean }) => {
+  // console.log("is",isFavorite)
+  const { pending } = useFormStatus();
+  return (
+    <Button type="submit" size="icon" variant="outline">
+      {pending ? <RotateCw className="animate-spin"/> : isFavorite ? <Heart fill="black"/>: <Heart />}
+    </Button>
   );
 };

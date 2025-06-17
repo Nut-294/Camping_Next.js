@@ -9,6 +9,7 @@ import { clerkClient, currentUser } from "@clerk/nextjs/server";
 import db from "@/utils/db";
 import { redirect } from "next/navigation";
 import { uploadFile } from "@/utils/supabase";
+import { revalidatePath } from "next/cache";
 
 //ตรวจจับ
 const getAuthUser = async () => {
@@ -108,4 +109,58 @@ export const fetchLandmarks = async () => {
     },
   });
   return landmarks;
+};
+
+//ใช้ landmarkId และ profileId
+export const fetchFavoriteId = async ({
+  landmarkId,
+}: {
+  landmarkId: string;
+}) => {
+  const user = await getAuthUser();
+  const favorite = await db.favorite.findFirst({
+    where: {
+      landmarkId: landmarkId,
+      profileId: user.id,
+    },
+    select: {
+      id: true,
+    },
+  });
+  return favorite?.id || null;
+};
+
+export const toggleFavoriteAction = async (prevState: {
+  favoriteId: string | null;
+  landmarkId: string;
+  pathname: string;
+}) => {
+  const { favoriteId, landmarkId, pathname } = prevState;
+  const user = await getAuthUser();
+  try {
+    //ถ้าเคยกดแล้วสั้ง ให้ Delete
+    if (favoriteId) {
+      await db.favorite.delete({
+        where: {
+          id: favoriteId,
+        },
+      });
+    }
+    //ถ้ายังไม่เคยกด ให้ Create
+    else {
+      await db.favorite.create({
+        data: {
+          landmarkId: landmarkId,
+          profileId: user.id,
+        },
+      });
+    }
+    //อัพเดทข้อมูลอยู่เสมอ
+    revalidatePath(pathname)
+    return {
+      message: favoriteId ? "Remove Favorite Success" : "Add Favorite Success",
+    };
+  } catch (error) {
+    return renderError(error)
+  }
 };

@@ -5,7 +5,7 @@ import FavoriteToggleButton from "./FavoriteToggleButton";
 const LandmarkCard = ({ landmark }: { landmark: LandmarkCardProps }) => {
   const { name, image, id, province, lat, lng, category, description, price } =
     landmark;
-  console.log('landmark',landmark);
+  // console.log('landmark',landmark);
   return (
     <article className="relative group">
       <div className="relative h-[300px] rounded-mb mb-2">
