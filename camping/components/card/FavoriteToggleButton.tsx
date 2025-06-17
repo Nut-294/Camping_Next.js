@@ -2,9 +2,10 @@ import { Heart } from "lucide-react";
 import { Button } from "../ui/button";
 import { auth } from "@clerk/nextjs/server";
 import { SignInCardButton } from "../form/Buttons";
-const FavoriteToggleButton = async ({ LandmarkId }: { LandmarkId: string }) => {
+const FavoriteToggleButton = async ({ landmarkId }: { landmarkId: string }) => {
   const { userId } = await auth();
   console.log("userId", userId);
+  console.log('landmarkId',landmarkId)
 
   if (!userId) {
     return <SignInCardButton />;

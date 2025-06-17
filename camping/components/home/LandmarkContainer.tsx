@@ -6,7 +6,7 @@ const LandmarkContainer = async () => {
   // console.log(landmarks);
   return (
     <div>
-      <LandmarkList Landmarks={landmarks} />
+      <LandmarkList landmarks={landmarks} />
     </div>
   );
 };
