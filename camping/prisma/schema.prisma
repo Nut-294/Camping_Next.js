@@ -8,18 +8,19 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
+//คล้ายการสร้างตาราง
 model Profile {
-  id           String     @id @default(uuid())
-  clerkId      String     @unique
-  firstName    String
+  id           String     @id @default(uuid()) //@default เป็นการกำหนดค่า default โดยจะกำหนดด้วย uuid()
+  clerkId      String     @unique //@unique ห้ามซ้ำ!!
+  firstName    String     // ถ้ามีเครื่องหมาย ? คือมีค่าหรือไม่มีค่าก็ได้
   lastName     String
   userName     String
   email        String
   profileImage String
   createdAt    DateTime   @default(now())
-  updatedAt    DateTime   @updatedAt
-  landmarks    Landmark[]
-  favorites    Favorite[]
+  updatedAt    DateTime   @updatedAt   //เวลา
+  landmarks    Landmark[] //เก็บชนิดข้อมูล array
+  favorites    Favorite[] //เก็บชนิดข้อมูล array
 }
 
 model Landmark {
@@ -34,6 +35,8 @@ model Landmark {
   price       Int
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
+  //อ้างอิงไปยัง model->Profile | โดยเข้าถึง profileId ของ model | และอ้างอิงไปที่ clerkId ของ model->Profile
+  //onDelete: Cascade คือ สั่งลบข้อมูล Landmark ทั้งหมด ตาม clerkId ของ model->Profile
   profile     Profile    @relation(fields: [profileId], references: [clerkId], onDelete: Cascade)
   profileId   String
   favorites   Favorite[]
@@ -46,7 +49,7 @@ model Favorite {
 
   profile   Profile @relation(fields: [profileId], references: [clerkId], onDelete: Cascade)
   profileId String
-
+  // ไม่มี [id] ของ landmark ก็จะสั่งลบ model Favorit ของ landmark นั้น
   landmark   Landmark @relation(fields: [landmarkId], references: [id], onDelete: Cascade)
   landmarkId String
 }
