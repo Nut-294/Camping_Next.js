@@ -11,10 +11,9 @@ import { redirect } from "next/navigation";
 import { uploadFile } from "@/utils/supabase";
 import { revalidatePath } from "next/cache";
 
-//ตรวจจับ
+//ตรวจจับ มีข้อมูล user สำหรับนำไปเช็คและเรียกใช้
 const getAuthUser = async () => {
   const user = await currentUser();
-  // console.log("user จาก clerk", user);
   if (!user) {
     throw new Error("you must logged!!");
   }
@@ -156,11 +155,36 @@ export const toggleFavoriteAction = async (prevState: {
       });
     }
     //อัพเดทข้อมูลอยู่เสมอ
-    revalidatePath(pathname)
+    revalidatePath(pathname);
     return {
       message: favoriteId ? "Remove Favorite Success" : "Add Favorite Success",
     };
   } catch (error) {
-    return renderError(error)
+    return renderError(error);
   }
+};
+
+export const fetchFavorites = async () => {
+  const user = getAuthUser();
+  const favorites = await db.favorite.findMany({
+    where: {
+      profileId: user.id,
+    },
+    select: {
+      landmark: {
+        select: {
+          id: true,
+          name: true,
+          description: true,
+          image: true,
+          price: true,
+          province: true,
+          lat: true,
+          lng: true,
+          category: true,
+        },
+      },
+    },
+  });
+  return favorites.map((favorite)=>favorite.landmark)
 };
