@@ -101,8 +101,14 @@ export const createLandmarkAction = async (
   redirect("/");
 };
 
-export const fetchLandmarks = async () => {
+export const fetchLandmarks = async ({ search = "" }: { search?: string }) => {
   const landmarks = await db.landmark.findMany({
+    where: { // insensitive ต้นหาโดยไม่สน พิมใหญ่พิมเล็ก
+      OR: [
+        { name: { contains: search, mode: "insensitive" } },
+        { description: { contains: search, mode: "insensitive" } }
+      ],
+    },
     orderBy: {
       createdAt: "desc",
     },
@@ -186,5 +192,5 @@ export const fetchFavorites = async () => {
       },
     },
   });
-  return favorites.map((favorite)=>favorite.landmark)
+  return favorites.map((favorite) => favorite.landmark);
 };
