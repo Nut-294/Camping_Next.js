@@ -45,7 +45,7 @@ const DropdownListMenu = () => {
 
         {/* Login แล้ว */}
         <SignedIn>
-          {/* links จาก utils วนลูปเอาไม่จ้องเขียนแยก*/}
+          {/* links จาก utils วนลูปเอาไม่ต้องเขียนแยก*/}
           {links.map((item, index) => {
             return (
               <DropdownMenuItem key={index}>
