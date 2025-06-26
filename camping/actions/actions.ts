@@ -78,7 +78,8 @@ export const createLandmarkAction = async (
     //1.Validate
     const validatedFile = validateWithZod(imageSchema, { image: file });
     const validatedField = validateWithZod(landmarkSchema, rawData);
-    console.log("validatedFile.image", validatedFile.image);
+    // console.log("validatedFile.image", validatedFile.image);
+    // console.log("validatedField", validatedField);
     //2. Upload supabase
     const fullPath = await uploadFile(validatedFile.image);
     console.log("fullpath = ", fullPath);
@@ -101,12 +102,20 @@ export const createLandmarkAction = async (
   redirect("/");
 };
 
-export const fetchLandmarks = async ({ search = "" }: { search?: string }) => {
+export const fetchLandmarks = async ({
+  search = "",
+  category,
+}: {
+  search?: string;
+  category?: string;
+}) => {
   const landmarks = await db.landmark.findMany({
-    where: { // insensitive ต้นหาโดยไม่สน พิมใหญ่พิมเล็ก
+    where: {
+      category: category,
+      // insensitive ต้นหาโดยไม่สน พิมใหญ่พิมเล็ก
       OR: [
         { name: { contains: search, mode: "insensitive" } },
-        { description: { contains: search, mode: "insensitive" } }
+        { description: { contains: search, mode: "insensitive" } },
       ],
     },
     orderBy: {
