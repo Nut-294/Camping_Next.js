@@ -130,7 +130,7 @@ export const fetchLandmarksHero = async () => {
     orderBy: {
       createdAt: "desc",
     },
-    take:5
+    take: 5,
   });
   return landmarks;
 };
@@ -212,4 +212,16 @@ export const fetchFavorites = async () => {
     },
   });
   return favorites.map((favorite) => favorite.landmark);
+};
+
+export const fetchLandmarkDetail = async ({ id }: { id: string }) => {
+  return db.landmark.findFirst({
+    where: {
+      id:id
+    },
+    include:{
+      profile:true
+    }
+  }
+  )
 };
