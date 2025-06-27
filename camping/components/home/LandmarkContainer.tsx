@@ -17,17 +17,12 @@ const LandmarkContainer = async ({
   });
   const landmarksHero: LandmarkCardProps[] = await fetchLandmarksHero();
   // console.log(landmarks);
-
-  // if(landmarks.length === 0){
-  //   return <EmptyList/>
-  // }
-
   return (
     <div>
       <Hero landmarks={landmarksHero} />
       <CategoriesList search={search} category={category} />
       {landmarks.length === 0 ? (
-        <EmptyList />
+        <EmptyList heading="No Results" btnText="Clear Filters"/>
       ) : (
         <LandmarkList landmarks={landmarks} />
       )}
