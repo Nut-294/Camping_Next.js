@@ -4,7 +4,7 @@ import Breadcrumbs from "@/components/landmark/Breadcrumbs";
 import Description from "@/components/landmark/Description";
 import ImageContainer from "@/components/landmark/ImageContainer";
 import ShareButton from "@/components/landmark/ShareButton";
-import MapLandmark from "@/components/map/Map";
+import MapWrapper from '@/components/map/MapWrapper';
 
 import { redirect } from "next/navigation";
 
@@ -28,7 +28,7 @@ const LandmarkDetail = async ({ params }: { params: { id: string } }) => {
       <section>
         <div>
           <Description description={landmark.description} />
-          <MapLandmark location={{ lat: landmark.lat, lng: landmark.lng }} />
+          <MapWrapper location={{ lat: landmark.lat, lng: landmark.lng }} />
         </div>
       </section>
     </section>

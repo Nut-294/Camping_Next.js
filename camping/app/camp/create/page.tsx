@@ -7,7 +7,7 @@ import { createLandmarkAction } from "../../../actions/actions";
 import CategoryInput from "@/components/form/CategoryInput";
 import TextAreaInput from "@/components/form/TextAreaInput";
 import ProvinceInput from "@/components/form/Provinces";
-import MapLandmark from "@/components/map/MapLandmark";
+import MapWrapper from "@/components/map/MapWrapper";
 import ImageInput from "@/components/form/ImageInput";
 
 
@@ -44,7 +44,7 @@ const CreateProfile = async () => {
             <ProvinceInput />
           </div>
           <ImageInput/>
-          <MapLandmark />
+          <MapWrapper />
 
           <SubmitButton text="create Landmark" size="lg" />
         </FormContainer>
