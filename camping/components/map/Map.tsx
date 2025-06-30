@@ -30,6 +30,7 @@ function LocationMarker({ position, setPosition }: LocationMarkerProps) {
     click(e) {
       const newLocation: LatLng = [e.latlng.lat, e.latlng.lng];
       setPosition(newLocation);
+      // console.log("click",newLocation)
     },
   });
 
@@ -41,27 +42,32 @@ function LocationMarker({ position, setPosition }: LocationMarkerProps) {
 }
 
 const MapLandmark = ({
-  Location,
+  location,
 }: {
   location?: { lat: number; lng: number };
 }) => {
   const defaultLocation: LatLng = [13, 100];
 
   const [position, setPosition] = useState<LatLng | null>(null);
-  console.log("position", position);
+  // console.log("position", position);
+  console.log("Location", location);
   return (
     <>
       <h1 className="mt-4 font-semibold">Where are you?</h1>
       <input type="hidden" name="lat" value={position ? position[0] : ""} />
 
-      <input type="hidden" name="lng" value={position ? position[0] : ""} />
+      <input type="hidden" name="lng" value={position ? position[1] : ""} />
       <MapContainer
         className="h-[50vh] rounded-lg z-0 relative mb-2"
-        center={Location || defaultLocation}
+        key={location ? `${location.lat}-${location.lng}` : "default"}
+        center={location ? [location.lat, location.lng] : defaultLocation}
         zoom={7}
         scrollWheelZoom={false}
       >
-        <Marker position={Location || defaultLocation} icon={markerIcon}>
+        <Marker
+          position={location ? [location.lat, location.lng] : defaultLocation}
+          icon={markerIcon}
+        >
           <Popup>
             A pretty CSS3 popup. <br /> Easily customizable.
           </Popup>
@@ -69,7 +75,7 @@ const MapLandmark = ({
         <LocationMarker position={position} setPosition={setPosition} />
 
         <LayersControl>
-        <LayersControl.BaseLayer name="ESRI Imagery" checked>
+          <LayersControl.BaseLayer name="ESRI Imagery" checked>
             <TileLayer
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
@@ -81,8 +87,6 @@ const MapLandmark = ({
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
           </LayersControl.BaseLayer>
-
-        
         </LayersControl>
       </MapContainer>
     </>

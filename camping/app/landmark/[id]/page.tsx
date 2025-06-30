@@ -3,6 +3,8 @@ import FavoriteToggleButton from "@/components/card/FavoriteToggleButton";
 import Breadcrumbs from "@/components/landmark/Breadcrumbs";
 import Description from "@/components/landmark/Description";
 import ImageContainer from "@/components/landmark/ImageContainer";
+import MapLandmark from "@/components/map/Map";
+
 import { redirect } from "next/navigation";
 
 const LandmarkDetail = async ({ params }: { params: { id: string } }) => {
@@ -25,6 +27,7 @@ const LandmarkDetail = async ({ params }: { params: { id: string } }) => {
       <section>
         <div>
           <Description description={landmark.description} />
+          <MapLandmark location={{ lat: landmark.lat, lng: landmark.lng }} />
         </div>
       </section>
     </section>
